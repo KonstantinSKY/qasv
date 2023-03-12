@@ -5,6 +5,8 @@ from selenium.webdriver.common.keys import Keys
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support.ui import Select
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service as ChromeService
 from time import sleep
 from faker import Faker
 from random import randint
@@ -113,6 +115,12 @@ def fill_drop():
 
 def main():
     drv.get(URL)
+    try:
+        title = drv.title
+        assert "Online Order Form" in drv.title
+        print('Title Assertion test pass')
+    except Exception as e:
+        print('Title Assertion test failed', format(e))
     fill_fields()
     fill_date()
     fill_country()
@@ -134,7 +142,7 @@ def main():
 if __name__ == "__main__":
     for n in range(100):
         print("Test :", n)
-        drv = webdriver.Chrome()
+        drv = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
         drv.maximize_window()
         try:
             main()
