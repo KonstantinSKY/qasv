@@ -2,9 +2,13 @@
 
 .idea
 .gitignore
+.venv/
 venv/
 __pycache__/
 logs/
+*.log
 security.py
 DB/
+*.db
+**/__pycache/
 TODO
