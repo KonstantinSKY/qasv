@@ -11,6 +11,9 @@ from time import sleep
 from faker import Faker
 from random import randint
 
+
+
+
 URL = "https://form.123formbuilder.com/5012215"
 fake = Faker()
 # elements xpaths
@@ -122,27 +125,35 @@ def main():
     except Exception as e:
         print('Title Assertion test failed', format(e))
     fill_fields()
+    drv.save_screenshot("image.png")
     fill_date()
     fill_country()
     fill_radio()
     fill_drop()
     fill_check()
+    drv.save_screenshot("image2.png")
     drv.find_element("xpath", capcha).click()
 
     sleep(5)
     try:
         drv.find_element("xpath", submit).click()
+        drv.save_screenshot("image3.png")
     except:
         print("enter the capcha!!")
+    drv.save_screenshot("image4.png")
     sleep(10)
     drv.close()
     sleep(2)
 
 
 if __name__ == "__main__":
-    for n in range(100):
+    for n in range(10):
         print("Test :", n)
-        drv = webdriver.Chrome(service=ChromeService(ChromeDriverManager().install()))
+        options = webdriver.ChromeOptions()
+        options.add_argument('headless')
+        options.add_argument('window-size=600x1600')
+
+        drv = webdriver.Chrome(options=options, service=ChromeService(ChromeDriverManager().install()))
         drv.maximize_window()
         try:
             main()
