@@ -111,8 +111,11 @@ def fill_check():
 
 
 def fill_drop():
-    select = Select(
-        drv.find_element("xpath", dropdown))
+    element_select = drv.find_element("xpath", "//body/form[@id='form']/div[1]/div[2]/div[8]/div[1]/div[1]/div[1]/select[1]" )
+    select = Select(element_select)
+
+    # select = Select(
+    #     drv.find_element("xpath", dropdown))
     select.select_by_index(randint(0, 2))
 
 
